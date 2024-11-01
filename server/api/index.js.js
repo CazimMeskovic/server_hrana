@@ -7,11 +7,13 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import Stripe from 'stripe';/* 
-const Stripe = require('stripe'); */
+import dotenv from 'dotenv';
+dotenv.config();
 
 
-const stripe = Stripe('YOUR_STRIPE_SECRET_KEY'); // Replace with your actual secret key
+
+
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -36,13 +38,21 @@ const authenticateUser = (req, res, next) => {
     });
 };
 
-// MySQL Connection
+/* // MySQL Connection
 const db_signup = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'signup_app',
+}).promise(); */
+
+const db_signup = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 }).promise();
+
 
 db_signup.connect()
     .then(() => console.log('Connected to signup_app'))
@@ -145,12 +155,10 @@ app.post('/create-payment-intent', async (req, res) => {
         res.status(500).json({ error: 'Payment failed' });
     }
 });
-/* 
+ 
 // Start the Server
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
- */
-
-export default app;
+ 
