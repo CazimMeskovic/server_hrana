@@ -1,16 +1,27 @@
 
 
 // Server Configuration
-import express from 'express';
+/* import express from 'express';
 import mysql from 'mysql2';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken'; */
+/* import dotenv from 'dotenv/config' */
+/* import dotenv from 'dotenv'; */
+/* const dotenv = require('dotenv')  */
+/* 
+dotenv.config(); */
+
+const express = require('express');
+const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
 dotenv.config();
-
-
 
 
 
@@ -38,21 +49,41 @@ const authenticateUser = (req, res, next) => {
     });
 };
 
-/* // MySQL Connection
-const db_signup = mysql.createConnection({
+ // MySQL Connection
+/* const db_signup = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'signup_app',
-}).promise(); */
+}).promise();  */
 
-const db_signup = mysql.createConnection({
+/*   const db_signup = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+}).promise();   */
+const db_signup = mysql.createConnection({
+   /*  host: process.env.DB_HOST, */
+  /*  host: process.env.MYSQL_PUBLIC_URL, */
+   host: process.env.MYSQL_URL,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT, // dodaj port
 }).promise();
 
+// Log database connection details
+console.log("Connecting to database with the following details:");
+console.log(`Host: ${process.env.DB_HOST}`);
+console.log(`User: ${process.env.DB_USER}`);
+
+/* const db_signup = mysql.createConnection({
+    host: 'mysql.railway.internal',
+    user: 'root',
+    password: 'QRDGbccBokcxmoHMAeYCtEjECQNjChbt',
+    database: 'railway',
+}).promise();  */
 
 db_signup.connect()
     .then(() => console.log('Connected to signup_app'))
