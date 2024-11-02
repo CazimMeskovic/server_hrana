@@ -49,31 +49,22 @@ const authenticateUser = (req, res, next) => {
     });
 };
 
- // MySQL Connection
-/* const db_signup = mysql.createConnection({
+/*  // MySQL Connection
+ const db_signup = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'signup_app',
-}).promise();  */
+}).promise();  */ 
 
-/*   const db_signup = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-}).promise();   */
-const DBConect=`mysql://root:BmslglHkieXbvdQrbpmqgMqNfxSnVEXq@mysql.railway.internal:3306/railway`
-const db_signup = mysql.createConnection(DBConect).promise();
+// MySQL Connection
+const db_signup = mysql.createConnection({
+    host: process.env.DB_HOST,  // Replace with your InfinityFree DB host
+    user: process.env.DB_USER,  // Replace with your InfinityFree DB username
+    password: process.env.DB_PASS, // Replace with your InfinityFree DB password
+    database: process.env.DB_NAME, // Replace with your InfinityFree DB name
+}).promise();
 
-/* const db_signup = mysql.createConnection({
- 
-   host: process.env.MYSQL_URL,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT, // dodaj port
-}).promise(); */
 
 // Log database connection details
 console.log("Connecting to database with the following details:");
