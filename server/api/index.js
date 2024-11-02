@@ -63,15 +63,17 @@ const authenticateUser = (req, res, next) => {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
 }).promise();   */
-const db_signup = mysql.createConnection({
-   /*  host: process.env.DB_HOST, */
-  /*  host: process.env.MYSQL_PUBLIC_URL, */
+const DBConect=`mysql://root:BmslglHkieXbvdQrbpmqgMqNfxSnVEXq@mysql.railway.internal:3306/railway`
+const db_signup = mysql.createConnection(DBConect).promise();
+
+/* const db_signup = mysql.createConnection({
+ 
    host: process.env.MYSQL_URL,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT, // dodaj port
-}).promise();
+}).promise(); */
 
 // Log database connection details
 console.log("Connecting to database with the following details:");
